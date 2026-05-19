@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wauhillau Club — Member Guide</title>
+<style>
+  :root {
+    --ink: #0f172a;
+    --ink-soft: #475569;
+    --ink-muted: #64748b;
+    --line: #e2e8f0;
+    --line-soft: #f1f5f9;
+    --bg: #ffffff;
+    --bg-soft: #f8fafc;
+    --accent: #0284c7;
+    --ok: #16a34a;
+    --warn: #b45309;
+    --warn-bg: #fef3c7;
+    --severe: #dc2626;
+    --severe-bg: #fee2e2;
+    --kbd-bg: #f1f5f9;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+    line-height: 1.55;
+  }
+  .wrap {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 24px;
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 36px;
+  }
+  @media (max-width: 800px) {
+    .wrap { grid-template-columns: 1fr; padding: 16px; }
+    nav.toc { position: static !important; max-height: none !important; }
+  }
+  nav.toc {
+    position: sticky;
+    top: 24px;
+    max-height: calc(100vh - 48px);
+    overflow-y: auto;
+    font-size: 14px;
+    border-right: 1px solid var(--line);
+    padding-right: 16px;
+  }
+  nav.toc h2 {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-muted);
+    margin: 0 0 8px 0;
+  }
+  nav.toc ol {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    counter-reset: section;
+  }
+  nav.toc li {
+    counter-increment: section;
+    margin: 2px 0;
+  }
+  nav.toc li::before {
+    content: counter(section) ". ";
+    color: var(--ink-muted);
+    font-variant-numeric: tabular-nums;
+    margin-right: 4px;
+  }
+  nav.toc a {
+    color: var(--ink);
+    text-decoration: none;
+    border-radius: 6px;
+    padding: 3px 6px;
+    display: inline;
+  }
+  nav.toc a:hover { background: var(--line-soft); }
+
+  main { min-width: 0; }
+
+  header.hero {
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 18px;
+    margin-bottom: 24px;
+  }
+  header.hero .kicker {
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin: 0 0 6px 0;
+  }
+  header.hero h1 {
+    font-size: 32px;
+    margin: 0;
+    color: var(--ink);
+  }
+  header.hero p {
+    color: var(--ink-soft);
+    margin: 8px 0 0 0;
+    max-width: 60ch;
+  }
+
+  section { margin-bottom: 44px; scroll-margin-top: 24px; }
+  section h2 {
+    font-size: 22px;
+    color: var(--ink);
+    border-left: 4px solid var(--accent);
+    padding-left: 10px;
+    margin: 0 0 6px 0;
+  }
+  section h3 {
+    font-size: 17px;
+    margin: 22px 0 6px 0;
+    color: var(--ink);
+  }
+  section p, section li { color: var(--ink); }
+  section .lead {
+    color: var(--ink-soft);
+    margin-top: 4px;
+    margin-bottom: 16px;
+  }
+
+  ul, ol { padding-left: 22px; }
+  li { margin: 4px 0; }
+
+  .callout {
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--accent);
+    background: var(--bg-soft);
+    border-radius: 8px;
+    padding: 12px 14px;
+    margin: 14px 0;
+    font-size: 14.5px;
+  }
+  .callout.tip { border-left-color: var(--ok); }
+  .callout.warn {
+    border-left-color: var(--warn);
+    background: var(--warn-bg);
+  }
+  .callout.severe {
+    border-left-color: var(--severe);
+    background: var(--severe-bg);
+  }
+  .callout h4 {
+    margin: 0 0 4px 0;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .pill {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+    border: 1px solid var(--line);
+    background: var(--bg-soft);
+    color: var(--ink);
+    vertical-align: middle;
+  }
+  .pill.mild  { background: var(--warn-bg); border-color: rgba(180, 83, 9, 0.4); color: #7c2d12; }
+  .pill.severe{ background: var(--severe-bg); border-color: rgba(220, 38, 38, 0.5); color: #7f1d1d; }
+  .pill.audience { background: #dbeafe; border-color: #bfdbfe; color: #1e40af; }
+
+  kbd {
+    display: inline-block;
+    padding: 1px 6px;
+    border: 1px solid var(--line);
+    border-bottom-width: 2px;
+    border-radius: 4px;
+    background: var(--kbd-bg);
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 12px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+    font-size: 14.5px;
+  }
+  th, td {
+    border-bottom: 1px solid var(--line);
+    text-align: left;
+    padding: 8px 10px;
+    vertical-align: top;
+  }
+  th { background: var(--bg-soft); }
+
+  code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 13px;
+    background: var(--line-soft);
+    padding: 1px 5px;
+    border-radius: 4px;
+  }
+
+  .steps {
+    counter-reset: step;
+    list-style: none;
+    padding: 0;
+  }
+  .steps li {
+    counter-increment: step;
+    position: relative;
+    padding-left: 36px;
+    margin: 10px 0;
+  }
+  .steps li::before {
+    content: counter(step);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: white;
+    font-size: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .screen-stub {
+    border: 1px dashed var(--line);
+    border-radius: 8px;
+    background: var(--bg-soft);
+    padding: 10px 14px;
+    color: var(--ink-muted);
+    font-size: 13px;
+    margin: 10px 0;
+    font-style: italic;
+  }
+
+  figure.shot {
+    margin: 14px 0 18px 0;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    overflow: hidden;
+    background: var(--bg-soft);
+    max-width: 480px;
+  }
+  figure.shot img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  figure.shot figcaption {
+    font-size: 12px;
+    color: var(--ink-muted);
+    padding: 8px 12px;
+    border-top: 1px solid var(--line);
+    background: white;
+  }
+  /* If the file is missing, broken-image icon shows; alt text is the next-best thing. */
+  figure.shot img[alt]:after {
+    content: attr(alt);
+    display: block;
+    padding: 20px;
+    color: var(--ink-muted);
+    font-style: italic;
+    font-size: 13px;
+  }
+
+  footer.foot {
+    margin-top: 60px;
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
+    font-size: 13px;
+    color: var(--ink-muted);
+  }
+
+  /* Print: paper-friendly */
+  @media print {
+    body { background: white; }
+    .wrap { display: block; max-width: none; padding: 0 16px; }
+    nav.toc { display: none; }
+    section { page-break-inside: avoid; }
+    a { color: var(--ink); text-decoration: none; }
+    header.hero { border-bottom: 2px solid var(--ink); }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+<nav class="toc" aria-label="Table of contents">
+  <h2>Contents</h2>
+  <ol>
+    <li><a href="#login">Logging in</a></li>
+    <li><a href="#layout">The screen layout</a></li>
+    <li><a href="#checkin">Check-In &amp; Book Meals</a></li>
+    <li><a href="#future">Future Bookings</a></li>
+    <li><a href="#profile">Member Profile</a></li>
+    <li><a href="#allergies">Allergies — Household &amp; Guests</a></li>
+    <li><a href="#history">Past Meals &amp; activity report</a></li>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#messages">Messages</a></li>
+    <li><a href="#vote">Vote</a></li>
+    <li><a href="#theme">Light / Dark mode</a></li>
+    <li><a href="#faq">FAQs &amp; troubleshooting</a></li>
+  </ol>
+</nav>
+
+<main>
+
+<header class="hero">
+  <p class="kicker">Wauhillau Club</p>
+  <h1>Member Guide</h1>
+  <p>How to book meals, register allergies for yourself and your guests, view the menu, read announcements, and cast votes. This guide matches the 2026 app.</p>
+</header>
+
+<!-- ====================================================================== -->
+
+<section id="login">
+  <h2>1. Logging in</h2>
+  <p class="lead">Each member has a unique PIN. The PIN is what tells the app who you are — your booking history, your profile, and your allergies are tied to it.</p>
+  <ol class="steps">
+    <li>Open the club app in any browser (phone, tablet, or computer).</li>
+    <li>The first screen shows the Wauhillau logo and a box labeled <strong>Member PIN</strong>.</li>
+    <li>Type your PIN and press <kbd>Enter</kbd> or tap the button below the box.</li>
+  </ol>
+  <div class="callout tip">
+    <h4>Forgot your PIN?</h4>
+    Contact a board member or the admin. PINs can be reset by the club admin from the Members screen — they don't need to call IT.
+  </div>
+</section>
+
+<!-- ====================================================================== -->
+
+<section id="layout">
+  <h2>2. The screen layout</h2>
+  <p class="lead">After login you'll see five tabs across the top:</p>
+  <table>
+    <thead><tr><th>Tab</th><th>What it's for</th></tr></thead>
+    <tbody>
+      <tr><td>✅ Check-In &amp; Book Meals</td><td>The main booking screen. Pick dates, add people, choose meals.</td></tr>
+      <tr><td>👤 Member Profile</td><td>Your email, allergy profiles for yourself and household members &amp; guests, and your past meals.</td></tr>
+      <tr><td>🍽️ Menu</td><td>What the chef is serving on upcoming dates.</td></tr>
+      <tr><td>💬 Messages</td><td>Announcements from the club.</td></tr>
+      <tr><td>🗳️ Vote</td><td>Cast your vote on open ballots.</td></tr>
+    </tbody>
+  </table>
+  <p>At the very top of every screen you'll also see a <strong>Light / Dark</strong> toggle and a <strong>Logout</strong> button. The dark mode is easier on the eyes at night; light mode is better in bright sun.</p>
+
+  <figure class="shot">
+    <img src="screenshots/welcome.png" alt="Welcome screen with the five tabs along the top">
+    <figcaption>The welcome screen — every tab is reachable from here.</figcaption>
+  </figure>
+</section>
+
+<!-- ====================================================================== -->
+
+<section id="checkin">
+  <h2>3. Check-In &amp; Book Meals</h2>
+  <p class="lead">This is where you reserve meals for your stay. You can book for yourself, your spouse or kids, and any guests on the same trip.</p>
+
+  <h3>Booking your meals — step by step</h3>
+  <ol class="steps">
+    <li>Pick your <strong>Check-in Date</strong> and <strong>Check-out Date</strong>. Use the calendar pickers — typing isn't required.</li>
+    <li>Type a person's <strong>Full Name</strong>. Use the name that should appear on the chef's roster.</li>
+    <li>If this person is not a member, check the <strong>Guest</strong> box. If they're under the age of guidelines for guest billing, check the <strong>Child</strong> box. Members shouldn't check either.</li>
+    <li>Click <strong>Add Person</strong>. A card appears for them showing every day of your stay.</li>
+    <li>For each day, tap the meals they want (Breakfast, Lunch, Dinner). Selected meals turn green.</li>
+    <li>Repeat steps 2–5 for everyone in your party (spouse, kids, guests). Each person gets their own card so the chef knows individual counts.</li>
+    <li>When everyone's selections are in, click <strong>Submit</strong>. You'll see a confirmation and the booking will appear in <em>Future Bookings</em> at the top of the screen.</li>
+  </ol>
+
+  <div class="callout tip">
+    <h4>Tip: Day names alongside dates</h4>
+    Each day in the booking flow shows the day of the week — for example "Saturday, 2026-05-23" — so you can spot weekends at a glance.
+  </div>
+
+  <figure class="shot">
+    <img src="screenshots/checkin-add-person.png" alt="Person card added with three days of meal buttons">
+    <figcaption>After you click Add Person, a card appears with one row per day of your stay.</figcaption>
+  </figure>
+
+  <figure class="shot">
+    <img src="screenshots/checkin-meals-selected.png" alt="Same person card with Breakfast Friday, Lunch Saturday, and Dinner Sunday selected in green">
+    <figcaption>Selected meals turn green. Repeat for everyone in your party before hitting Submit.</figcaption>
+  </figure>
+
+  <h3>Meal cutoffs</h3>
+  <p>You can't book meals after the chef's cutoff. The cutoffs (Central Time) are:</p>
+  <ul>
+    <li><strong>Breakfast:</strong> 9:00 AM same day</li>
+    <li><strong>Lunch:</strong> 9:30 AM same day</li>
+    <li><strong>Dinner:</strong> 4:00 PM same day</li>
+    <li><strong>Tomorrow's breakfast:</strong> locks at 9:00 PM the night before</li>
+  </ul>
+  <p>If a meal button is grayed out and you can't toggle it, the cutoff has already passed. Special weekends (Stag, WOW, Final Fling) have earlier deadlines — those are published well in advance.</p>
+
+  <div class="callout">
+    <h4>Mondays and breakfast</h4>
+    Breakfast is normally <strong>not served on Mondays</strong>, with three exceptions: <strong>Memorial Day, 4th of July, and Labor Day</strong> weekends. On those Mondays you'll see Breakfast available; on regular Mondays it'll be disabled.
+  </div>
+
+  <h3>Booking Summary</h3>
+  <p>At the bottom of the Check-In page there's a <strong>Show Booking Summary</strong> button. Toggle it on to see a quick recap of which meals are booked for which days across everyone in your party — handy as a final sanity check before submitting.</p>
+</section>
+
+<!-- ====================================================================== -->
+
+<section id="future">
+  <h2>4. Future Bookings — cancellations and changes</h2>
+  <p class="lead">Any meals you've already booked appear at the top of the Check-In screen under <strong>Future Bookings</strong>.</p>
+
+  <p>Each line shows the date, the person's name, and which meals they have booked. Below each booking you'll see:</p>
+  <ul>
+    <li><strong>Cancel Breakfast / Cancel Lunch / Cancel Dinner</strong> — removes just that one meal from the day.</li>
+    <li><strong>Delete entire day</strong> — removes every meal for that person on that day at once.</li>
+  </ul>
+
+  <div class="callout warn">
+    <h4>Cancellation cutoffs apply here too</h4>
+    You can only cancel a meal up to its cutoff time. After that, contact the chef directly if there's a real change of plans.
+  </div>
+
+  <figure class="shot">
+    <img src="screenshots/future-bookings-cancel.png" alt="Future bookings showing per-meal cancel buttons and a Delete entire day button">
+    <figcaption>Each existing booking gets per-meal cancel buttons and a Delete entire day button.</figcaption>
+  </figure>
+</section>
+
+<!-- ====================================================================== -->
+
+<section id="profile">
+  <h2>5. Member Profile</h2>
+  <p class="lead">Your profile holds two things the kitchen and the club need from you: your email and your allergies.</p>
+
+  <h3>Contact (email)</h3>
+  <p>The Contact card has one field — your email address. The club uses it to send your end-of-season activity summary to you when you ask for one. It's never shared with anyone else.</p>
+  <ol class="steps">
+    <li>Type your email into the box.</li>
+    <li>Click <strong>Save email</strong>. The button is disabled until you've actually changed the address, so a stray click won't re-save the same thing.</li>
+    <li>If you mistype, click <strong>Refresh</strong> to reload what's on file and start over.</li>
+  </ol>
+
+  <figure class="shot">
+    <img src="screenshots/profile-contact.png" alt="Member Profile screen with the Contact card showing the email field and Save / Refresh buttons">
+    <figcaption>The Contact card sits at the top of the profile, just above the allergies section.</figcaption>
+  </figure>
+</section>
+
+<!-- ====================================================================== -->
+
+<section id="allergies">
+  <h2>6. Allergies — Household &amp; Guests</h2>
+  <p class="lead">This is the most important part of the profile if you or anyone you bring has a food allergy or dietary restriction. The chef sees these on each booking, so accurate entries genuinely help the kitchen prepare safe plates.</p>
+
+  <h3>What it looks like</h3>
+  <p>The <strong>Food Allergies — Household &amp; Guests</strong> card lists everyone you've registered. Your own entry is pinned at the top and labeled <em>Member (you)</em>. Below that come spouses, children, and any guests with allergies that you've added.</p>
+
+  <p>Each row shows:</p>
+  <ul>
+    <li>The person's <strong>name</strong> as it appears on bookings.</li>
+    <li>Their <strong>role</strong> (Member, Spouse, Child, or Guest).</li>
+    <li>A <span class="pill mild">⚠ Mild</span> or <span class="pill severe">🚨 Severe</span> pill, or "No allergies" if nothing's flagged.</li>
+    <li>The list of selected allergens.</li>
+    <li>Any free-form notes for the chef.</li>
+  </ul>
+
+  <figure class="shot">
+    <img src="screenshots/allergies-list.png" alt="Household and Guests allergy list showing a member self entry, a spouse entry, and a guest with severe shellfish allergy">
+    <figcaption>The list. Self is pinned to the top. Severe entries get a red pill; mild gets yellow.</figcaption>
+  </figure>
+
+  <h3>Adding a person</h3>
+  <ol class="steps">
+    <li>Click the blue <strong>+ Add person</strong> button.</li>
+    <li>Type the person's <strong>name</strong> — match the exact spelling that appears on their booking, so the chef sees the warning on the right plate.</li>
+    <li>Pick a <strong>Role</strong>: Spouse / partner, Child, or Guest.</li>
+    <li>Pick a <strong>Severity</strong>: No special severity, Mild (preference / discomfort), or Severe (life-threatening / anaphylaxis). Severe entries show in red to the chef.</li>
+    <li>Tap any allergen chips that apply: Alpha Gal, Gluten, Wheat, Dairy, Lactose, Eggs, Peanuts, Tree Nuts, Soybeans, Shellfish, Fish, Sesame, Sulfites, Corn, MSG, Onions/Garlic, Other. Selected chips light up.</li>
+    <li>In <strong>Notes for the chef</strong>, add anything specific: severity reactions, cross-contact concerns, brand-specific intolerances, EpiPen status, etc.</li>
+    <li>Click <strong>Save</strong>.</li>
+  </ol>
+
+  <figure class="shot">
+    <img src="screenshots/allergies-add-person.png" alt="Add Person form showing name, role, severity dropdowns, the chip grid, and a notes textarea">
+    <figcaption>Adding a guest. Chips, severity, and a free-form notes field for anything specific.</figcaption>
+  </figure>
+
+  <div class="callout severe">
+    <h4>For severe allergies</h4>
+    Flag Severity as <strong>Severe</strong> and add the details in Notes — for example "Anaphylaxis to peanuts. Carries EpiPen. Cross-contact from fryers also reacts." The chef gets a red 🚨 pill on every booking row that matches the name.
+  </div>
+
+  <h3>Editing your own row</h3>
+  <p>Your own profile (the one labeled <em>Member (you)</em>) is fully editable, including the name. Account history is keyed on your member number, not the spelling of your name, so you can use a nickname or married name freely. The tip in the editor reminds you to match the spelling the chef will see on bookings.</p>
+
+  <figure class="shot">
+    <img src="screenshots/allergies-edit-self.png" alt="Edit form for the member's own profile with the name editable, chips selected, and pine nuts noted in the chef notes">
+    <figcaption>Editing your own row — the name is fully editable; lookups stay keyed on your member number.</figcaption>
+  </figure>
+
+  <h3>Removing a guest</h3>
+  <p>Guests have both an <strong>Edit</strong> and a <strong>Remove</strong> button. Your own entry can only be edited — if you have no allergies, clear all the chips and the note, and leave it.</p>
+</section>
+
+<!-- ====================================================================== -->
+
+<section id="history">
+  <h2>7. Past Meals &amp; activity report</h2>
+  <p class="lead">Below the allergies card, your profile shows every meal you've booked over the season, grouped by date.</p>
+
+  <h3>Filtering by year</h3>
+  <p>Use the <strong>Year</strong> selector to jump between seasons. Click <strong>Refresh</strong> if you've just made changes and want the list to reload.</p>
+
+  <h3>Take a copy with you</h3>
+  <p>There are two ways to get a personal record of your activity:</p>
+  <ul>
+    <li><strong>⬇ Download 2026 Activity (HTML)</strong> — saves a printable file to your device immediately.</li>
+    <li><strong>✉ Email me my 2026 Activity</strong> — queues an email to the address on file in your profile. You'll receive it within a few minutes.</li>
+  </ul>
+
+  <div class="callout tip">
+    <h4>Tip</h4>
+    The email button is disabled if you haven't saved an email in the Contact section yet. Save your email first, then come back.
+  </div>
+
+  <figure class="shot">
+    <img src="screenshots/past-meals.png" alt="Past Meals section with Download HTML and Email-me buttons and a day-by-day list">
+    <figcaption>Past Meals — download or email a year's worth of activity to yourself.</figcaption>
+  </figure>
+</section>
+
+<!-- ====================================================================== -->
+
+<section id="menu">
+  <h2>8. Menu</h2>
+  <p class="lead">The Menu tab shows what the chef is planning for the days ahead.</p>
+  <p>Each date has its own block with Breakfast, Lunch, and Dinner listed underneath. If the chef has left a note for that day, it appears at the bottom of the block. If a day hasn't been planned yet, it simply won't show up.</p>
+  <p>The Menu is also displayed on the dining hall's kiosk screen, so what you see here matches what's projected on the wall during meals.</p>
+
+  <figure class="shot">
+    <img src="screenshots/menu.png" alt="Menu tab showing breakfast, lunch, and dinner for a given date">
+    <figcaption>The Menu tab — same content as the dining hall TV.</figcaption>
+  </figure>
+</section>
+
+<!-- ====================================================================== -->
+
+<section id="messages">
+  <h2>9. Messages</h2>
+  <p class="lead">Club announcements from the admin appear here. Examples: season-start notices, work weekend reminders, holiday meal updates, board notes for board members.</p>
+
+  <p>Each message shows the title, the body text, and the active window underneath — for example <code>From: 2026-05-18 Until: 2026-05-26</code>. Messages outside their active window don't appear at all.</p>
+
+  <p>Some messages carry an <span class="pill audience">Audience: board</span> tag — those are only visible to board members. As a regular member you'll never see them; as a board member they'll show up alongside the others.</p>
+
+  <figure class="shot">
+    <img src="screenshots/messages.png" alt="Messages tab showing two welcome-back announcements with date ranges and audience labels">
+    <figcaption>Messages — title, body, active window, and audience scope.</figcaption>
+  </figure>
+</section>
+
+<!-- ====================================================================== -->
+
+<section id="vote">
+  <h2>10. Vote</h2>
+  <p class="lead">When the admin opens a ballot, it shows up here.</p>
+
+  <ol class="steps">
+    <li>Pick a ballot from the <strong>Select ballot</strong> dropdown. Each ballot lists its type code and a brief description.</li>
+    <li>The ballot details show: <strong>audience</strong> (who can vote), <strong>max votes</strong> (how many times you can cast a yes or no), and <strong>remaining votes</strong> (what you have left).</li>
+    <li>Tap <strong>✅ YES</strong> or <strong>❌ NO</strong>. A confirmation step appears — votes are final once confirmed, so the confirm is a deliberate moment to check yourself.</li>
+    <li>Confirm. Your vote is recorded immediately. The remaining-votes counter ticks down.</li>
+  </ol>
+
+  <div class="callout">
+    <h4>What "max votes" means</h4>
+    Some ballots let you cast more than one vote — for example a 2-vote ballot might let you vote Yes on one matter and No on another, or Yes twice on a strongly-supported item. Most ballots are 1-vote. Look at the <strong>Max votes</strong> line on each ballot.
+  </div>
+
+  <p>If you've already used all your votes for a ballot, the YES and NO buttons go gray and you'll see your tally just above them — e.g. <em>You voted: Yes 2 / No 0</em>. Votes can't be changed once submitted, so the limit is firm.</p>
+
+  <p>Board-only ballots are invisible to non-board members. You'll never see one you can't vote on. If you're on the board and you don't see a ballot you expect, ask the admin to confirm your role flag is set in your member record.</p>
+
+  <figure class="shot">
+    <img src="screenshots/vote.png" alt="Ballot screen showing a question, audience, remaining votes counter, and YES/NO buttons">
+    <figcaption>A ballot — question, audience, remaining-votes counter, YES and NO buttons.</figcaption>
+  </figure>
+</section>
+
+<!-- ====================================================================== -->
+
+<section id="theme">
+  <h2>11. Light / Dark mode</h2>
+  <p class="lead">The button labeled <strong>☀ Light</strong> or <strong>🌙 Dark</strong> at the top of every screen swaps the app's color scheme.</p>
+  <p>Pick whichever you find easier to read. The choice is remembered on your device for next time. Members frequently mention they prefer dark mode on phones at night and light mode on tablets during the day — switch freely.</p>
+</section>
+
+<!-- ====================================================================== -->
+
+<section id="faq">
+  <h2>12. FAQs &amp; troubleshooting</h2>
+
+  <h3>The page looks broken / a button isn't working</h3>
+  <p>Try a hard refresh first: hold <kbd>Shift</kbd> and click the browser's reload button (or press <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>R</kbd> on Windows, <kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>R</kbd> on Mac). That solves about 90% of one-off display issues.</p>
+
+  <h3>I don't see a ballot I should see</h3>
+  <p>Ballots are filtered by audience. If it's a Board-only ballot and you aren't flagged as board, you won't see it. Talk to the admin if you think your role is wrong.</p>
+
+  <h3>I can't book breakfast on a Monday</h3>
+  <p>Working as designed — see the <strong>Mondays and breakfast</strong> note in section 3. Memorial Day, 4th of July, and Labor Day weekends are the exceptions.</p>
+
+  <h3>I booked the wrong person — can the chef sort it out?</h3>
+  <p>Cancel the wrong meal yourself if you're still inside the cutoff window. If the cutoff has passed, contact the chef directly. The chef can edit any booking from their dashboard regardless of cutoff.</p>
+
+  <h3>My allergy isn't on the chip list</h3>
+  <p>Pick the closest match, then use the <strong>Notes for the chef</strong> field to spell out what's actually involved (e.g. tap "Other" and write "Pine nuts"). Severe allergies should ALWAYS include a note explaining the reaction and any required medication.</p>
+
+  <h3>I changed my email but didn't get the activity report</h3>
+  <p>Make sure you clicked <strong>Save email</strong> before clicking <strong>Email me my 2026 Activity</strong>. The email goes to whatever address is saved at the moment you request it. Also check your spam folder.</p>
+
+  <h3>The app remembers I'm logged in. Can I keep myself logged in on a shared computer?</h3>
+  <p>The session stays open until you click <strong>Logout</strong>. On a shared computer (like the family iPad or a club tablet) please log out when you're done. Anyone with access to that browser session can see and modify your bookings.</p>
+
+  <h3>Who do I contact for anything else?</h3>
+  <p>For meal questions or last-minute changes: the chef. For account or PIN issues: the club admin. For app bugs or feature requests: bring it up at the next board meeting or use the contact email shared by the board.</p>
+
+</section>
+
+<footer class="foot">
+  <p>Last updated for the 2026 season. This guide ships as a static page inside the app — if you're reading the printed version, the live version may have newer screenshots and notes.</p>
+</footer>
+
+</main>
+
+</div>
+
+</body>
+</html>
